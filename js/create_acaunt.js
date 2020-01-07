@@ -18,7 +18,13 @@ var select_content = [
 ];
 
 var submit_string = "送信";
-
+var min_year = 1900;
+var start_birth = "now";
+//now = その日 - default
+//year = その年の元日
+//mon = その年の月
+//yyyy-mm-dd 指定日
+var addres_search_flag = true;
 
 window.onload = function(){
     page_load();
@@ -37,8 +43,10 @@ function page_load(){
             append_mail();
         }else if(select_content[i] == 1 && i == 3){
             //create_password
+            append_password();
         }else if(select_content[i] == 1 && i == 4){
             //create_password_con
+            append_password_con();
         }else if(select_content[i] == 1 && i == 5){
             //create_user_name
         }else if(select_content[i] == 1 && i == 6){
@@ -140,4 +148,39 @@ function append_password_con(){
     chas_password_con_input.setAttribute("placeholder","パスワード確認");
 
     document.getElementById(form_id).append(chas_password_con_input);
+}
+
+function append_b_year(){
+    var chas_b_year_select = document.createElement("select");
+
+    chas_b_year_select.setAttribute("id","form_select_b_year");
+    chas_b_year_select.setAttribute("class","select_class");
+    
+    if(start_birth){
+        
+    }
+}
+
+function append_b_mon(){
+
+}
+
+function append_b_day(){
+
+}
+
+function append_postcode(){
+
+}
+
+function append_pref(){
+
+}
+
+function append_city(){
+
+}
+
+function append_addres(){
+
 }
