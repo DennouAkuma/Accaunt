@@ -19,8 +19,9 @@ var select_content = [
 
 var submit_string = "送信";
 var min_year = 1900;
-var start_birth = "now";
-//now = その日 - default
+var start_birth = 1987;
+var 
+//now = その日
 //year = その年の元日
 //mon = その年の月
 //yyyy-mm-dd 指定日
@@ -51,6 +52,7 @@ function page_load(){
             //create_user_name
         }else if(select_content[i] == 1 && i == 6){
             //create_b_year
+            append_b_year()
         }else if(select_content[i] == 1 && i == 7){
             //create_b_mon
         }else if(select_content[i] == 1 && i == 8){
@@ -95,7 +97,7 @@ function append_name(){
     chas_name_input.setAttribute("placeholder","ユーザー名");
     
     document.getElementById(form_id).append(chas_name_input);
-    append_enter()
+    append_enter();
 }
 
 function append_full_name(){
@@ -114,7 +116,7 @@ function append_full_name(){
     
     document.getElementById(form_id).append(chas_top_name_input);
     document.getElementById(form_id).append(chas_down_name_input);
-    append_enter()
+    append_enter();
 }
 
 function append_mail(){
@@ -126,6 +128,7 @@ function append_mail(){
     chas_mail_input.setAttribute("placeholder","メールアドレス");
 
     document.getElementById(form_id).append(chas_mail_input);
+    append_enter();
 }
 
 function append_password(){
@@ -137,6 +140,7 @@ function append_password(){
     chas_password_input.setAttribute("placeholder","パスワード");
 
     document.getElementById(form_id).append(chas_password_input);
+    append_enter();
 }
 
 function append_password_con(){
@@ -148,6 +152,7 @@ function append_password_con(){
     chas_password_con_input.setAttribute("placeholder","パスワード確認");
 
     document.getElementById(form_id).append(chas_password_con_input);
+    append_enter();
 }
 
 function append_b_year(){
@@ -155,9 +160,47 @@ function append_b_year(){
 
     chas_b_year_select.setAttribute("id","form_select_b_year");
     chas_b_year_select.setAttribute("class","select_class");
+
+    document.getElementById(form_id).append(chas_b_year_select);
     
-    if(start_birth){
-        
+    var type_string = Object.prototype.toString.call(start_birth);
+
+    if(type_string == "[object Number]"){
+        create_b_option(start_birth);
+    }else if(type_string == "[object String]"){
+        if(start_birth === "now"){
+            create_b_option(-1);
+        }else{
+
+        }
+    }
+}
+
+function create_b_option(chas_setting){
+    var chas_now_day = new Date();
+    var chas_value;
+    var chas_count = 0;
+
+    for(var i = chas_now_day.getFullYear();i >= min_year;i--){
+        var chas_b_year_option = document.createElement("option");
+
+        chas_b_year_option.setAttribute("value",i);
+        chas_b_year_option.innerHTML = i;
+
+        if(chas_setting >= min_year && chas_setting <= chas_now_day.getFullYear()){
+            if(i == chas_setting){
+                chas_value = chas_count;
+            }
+        }
+
+        document.getElementById("form_select_b_year").append(chas_b_year_option);
+        chas_count++;
+    }
+
+    if(chas_setting === -1){
+        document.getElementById("form_select_b_year").selectedIndex = 0;
+    }else if(chas_setting >= min_year && chas_setting <= chas_now_day.getFullYear()){
+        document.getElementById("form_select_b_year").selectedIndex = chas_value;
     }
 }
 
